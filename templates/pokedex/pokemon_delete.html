@@ -1,0 +1,11 @@
+{% extends 'pokedex/base.html' %}
+{% block content %}
+    <h1>Delete {{ pokemon_delete }}</h1>
+    {% include 'pokedex/messages.html' %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Delete Pokemon">
+    </form>
+    <a href="{% url 'pokedex:list-pokemons' %}">Go to pokemon list</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'pokedex/base.html' %}
+
+{% block content %}
+    <h1>Hello</h1>
+    <ul>
+        <li>Name: {{ pokemon_details }}</li>
+        <li>Height: {{ pokemon_details.height }}</li>
+        <li>Weight: {{ pokemon_details.weight }}</li>
+        <li>Type: {{ pokemon_details.type }}</li>
+    </ul>
+    <a href="{% url 'pokedex:update-pokemons' pokemon_details.id %}">Update</a>
+    <a href="{% url 'pokedex:delete-pokemons' pokemon_details.id %}">Delete</a>
+    
+{% endblock %}

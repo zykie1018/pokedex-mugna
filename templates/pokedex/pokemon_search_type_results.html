@@ -1,0 +1,13 @@
+{% extends 'pokedex/base.html' %}
+
+{% block content %}
+    {% include 'pokedex/pokemon_search_type.html' %}
+    {% if pokemons %}
+        <p>Found {{ pokemons|length }} pokemon{{pokemons|pluralize}}.</p>
+        <ul>
+            {% for pokemon in pokemons %}
+                <li>{{ pokemon }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

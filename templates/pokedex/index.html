@@ -1,0 +1,6 @@
+{% extends 'pokedex/base.html' %}
+
+{% block content %}
+    <h1>Welcome to The Pokedex</h1>
+    <a href="{% url 'pokedex:list-pokemons' %}">Go to pokemon list</a>
+{% endblock %}

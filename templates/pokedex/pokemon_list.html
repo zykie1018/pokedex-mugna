@@ -1,0 +1,15 @@
+{% extends 'pokedex/base.html' %}
+{% block content %}
+    <h1>List of Pokemons</h1>
+    <ul>
+    {% for pokemon in pokemon_list %}
+    
+    <li><a href="{% url 'pokedex:detail-pokemons' pokemon.id %}"> {{ pokemon.id }} {{ pokemon }}</a></li>
+    
+    {% endfor %}
+    </ul>
+    <a href="{% url 'pokedex:index' %}">Pokedex</a>
+    <a href="{% url 'pokedex:create-pokemons' %}">Create a new pokemon</a>
+    <a href="{% url 'pokedex:search-pokemons' %}">Search for a pokemon</a>
+    <a href="{% url 'pokedex:search-pokemons-type' %}">Search for a pokemon type</a>
+{% endblock %}
