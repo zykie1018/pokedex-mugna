@@ -4,6 +4,16 @@ from django.shortcuts import redirect
 from functools import wraps
 
 
+def user_is_authenticated(view_func):
+    def wrapper_func(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("pokedex:index")
+        else:
+            return view_func(request, *args, **kwargs)
+
+    return wrapper_func
+
+
 def allowed_user(allowed_roles=[]):
     def decorator(view_func):
         @wraps(view_func)

@@ -1,11 +1,15 @@
 import requests
 
+from pokedex.decorators import allowed_user, user_is_authenticated
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import View, ListView
+from django.utils.decorators import method_decorator
 
 from pokedex.models import Pokemon, PokemonStats
 
@@ -82,6 +86,8 @@ class PokemonDetails(View):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="pokedex:login-form"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin", "User"]), name="dispatch")
 class PokemonCreate(View):
     form_class = PokemonCreateForm
     initial = {"key": "value"}
@@ -104,6 +110,8 @@ class PokemonCreate(View):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="pokedex:login-form"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin", "User"]), name="dispatch")
 class PokemonUpdate(View):
     form_class = PokemonUpdateForm
     initial = {"key": "value"}
@@ -132,6 +140,8 @@ class PokemonUpdate(View):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="pokedex:login-form"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin", "User"]), name="dispatch")
 class PokemonDelete(View):
     form_class = PokemonDeleteForm
     initial = {"key": "value"}
@@ -220,6 +230,7 @@ class PokemonSearchByType(ListView):
         )
 
 
+@method_decorator(user_is_authenticated, name="dispatch")
 class PokemonLogin(ListView):
     form_class = PokemonLoginForm
     initial = {"key": "value"}
