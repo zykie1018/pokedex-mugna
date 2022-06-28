@@ -10,7 +10,8 @@ class PokemonAdmin(admin.ModelAdmin):
         "height",
         "type",
     ]
-    search_fields = ["names"]
+    list_filter = ["id", "type"]
+    search_fields = ["id", "names"]
 
 
 class PokemonStatsAdmin(admin.ModelAdmin):

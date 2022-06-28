@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Create a new Pokemon</h1>
+    <a href="{% url 'pokedex:list-pokemons' %}"><button>Go back</button></a>
     {% include 'pokedex/messages.html' %}
     <form method="POST">
         {% csrf_token %}

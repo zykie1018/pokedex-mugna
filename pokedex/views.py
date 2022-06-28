@@ -87,7 +87,7 @@ class PokemonDetails(View):
 
 
 @method_decorator(login_required(login_url="pokedex:login-form"), name="dispatch")
-@method_decorator(allowed_user(allowed_roles=["Admin", "User"]), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin", "Staff"]), name="dispatch")
 class PokemonCreate(View):
     form_class = PokemonCreateForm
     initial = {"key": "value"}
@@ -111,7 +111,7 @@ class PokemonCreate(View):
 
 
 @method_decorator(login_required(login_url="pokedex:login-form"), name="dispatch")
-@method_decorator(allowed_user(allowed_roles=["Admin", "User"]), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin", "Staff"]), name="dispatch")
 class PokemonUpdate(View):
     form_class = PokemonUpdateForm
     initial = {"key": "value"}
@@ -141,7 +141,7 @@ class PokemonUpdate(View):
 
 
 @method_decorator(login_required(login_url="pokedex:login-form"), name="dispatch")
-@method_decorator(allowed_user(allowed_roles=["Admin", "User"]), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin", "Staff"]), name="dispatch")
 class PokemonDelete(View):
     form_class = PokemonDeleteForm
     initial = {"key": "value"}

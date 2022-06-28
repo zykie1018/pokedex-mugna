@@ -1,7 +1,8 @@
 {% extends 'pokedex/base.html' %}
 
 {% block content %}
-    <h1>Hello</h1>
+    <h1>Details for {{ pokemon_details }}</h1>
+    <a href="{% url 'pokedex:list-pokemons' %}"><button>Go back</button></a>
     <ul>
         <li>Name: {{ pokemon_details }}</li>
         <li>Height: {{ pokemon_details.height }}</li>

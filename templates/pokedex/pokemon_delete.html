@@ -1,6 +1,7 @@
 {% extends 'pokedex/base.html' %}
 {% block content %}
     <h1>Delete {{ pokemon_delete }}</h1>
+    <a href="{% url 'pokedex:detail-pokemons' pokemon_delete.id %}"><button>Go back</button></a>
     {% include 'pokedex/messages.html' %}
     <form method="POST">
         {% csrf_token %}
