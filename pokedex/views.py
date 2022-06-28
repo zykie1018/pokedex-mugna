@@ -275,6 +275,12 @@ class PokemonLogin(ListView):
         return render(request, self.template_name, {"form": form})
 
 
+class PokemonLogout(ListView):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return HttpResponseRedirect(reverse("pokedex:login-form"))
+
+
 class PokemonRegister(ListView):
     form_class = PokemonRegisterForm
     initial = {"key": "value"}
