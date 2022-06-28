@@ -1,6 +1,7 @@
 import requests
 
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render
 from django.urls import reverse
@@ -16,6 +17,8 @@ from pokedex.forms import (
     PokemonDeleteForm,
     PokemonSearchForm,
     PokemonSearchTypeForm,
+    PokemonLoginForm,
+    # PokemonRegisterForm,
 )
 
 
@@ -202,6 +205,50 @@ class PokemonSearchByType(ListView):
             self.template_name,
             {"error": error},
         )
+
+
+class PokemonLogin(ListView):
+    form_class = PokemonLoginForm
+    initial = {"key": "value"}
+    template_name = "pokedex/pokemon_login.html"
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+
+        return render(
+            request,
+            self.template_name,
+            {"form": form},
+        )
+
+    def post(self, request, *args, **kwargs):
+
+        if request.method == "POST":
+            form = self.form_class(request.POST)
+            username = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(
+                username=username,
+                password=password,
+            )
+
+            if form.is_valid():
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+
+                        return render(
+                            request,
+                            "pokedex/index.html",
+                            {"username": username},
+                        )
+                    else:
+                        return HttpResponse("The username and password were incorrect")
+
+        else:
+            form = PokemonLoginForm()
+
+        return render(request, self.template_name, {"form": form})
 
 
 def pokemon_names_list(request):

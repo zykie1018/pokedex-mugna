@@ -1,0 +1,15 @@
+{% extends 'pokedex/base.html' %}
+
+{% block content %}
+  <h1>Register as a new pokemon trainer</h1>
+  {% include 'books/messages.html' %}
+  {% comment %} {% if form.errors %}
+    {{ form.errors }}
+  {% endif %} {% endcomment %}
+    <form>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Register">
+      </form>
+      <p> Already have an account? <a href="{% url 'pokedex:login-form' %}">Back to Login</a></p>
+{% endblock %}
