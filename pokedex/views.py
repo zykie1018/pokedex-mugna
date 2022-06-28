@@ -314,6 +314,7 @@ class PokemonRegister(ListView):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="pokedex:login-form"), name="dispatch")
 class PokemonHome(View):
     form_class = PokemonListForm
     initial = {"key": "value"}
