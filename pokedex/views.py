@@ -3,7 +3,7 @@ import requests
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import View, ListView
 
@@ -18,8 +18,15 @@ from pokedex.forms import (
     PokemonSearchForm,
     PokemonSearchTypeForm,
     PokemonLoginForm,
-    # PokemonRegisterForm,
+    PokemonRegisterForm,
 )
+
+"""
+    CRUD SECTION FOR POKEDEX
+    List and details for all pokemons,
+    create, update, and delete functions
+    
+"""
 
 
 class ListAllPokemons(View):
@@ -157,6 +164,12 @@ class PokemonDelete(View):
         )
 
 
+"""
+    Search section for pokemons,
+    search by pokemon, and search by type
+"""
+
+
 class PokemonSearch(ListView):
     form_class = PokemonSearchForm
     initial = {"key": "value"}
@@ -247,6 +260,34 @@ class PokemonLogin(ListView):
 
         else:
             form = PokemonLoginForm()
+
+        return render(request, self.template_name, {"form": form})
+
+
+class PokemonRegister(ListView):
+    form_class = PokemonRegisterForm
+    initial = {"key": "value"}
+    template_name = "pokedex/pokemon_register.html"
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+
+        return render(
+            request,
+            self.template_name,
+            {"form": form},
+        )
+
+    def post(self, request, *args, **kwargs):
+        if request.method == "POST":
+            form = self.form_class(request.POST)
+            if form.is_valid():
+                form.save()
+                # login(request, user)
+                messages.success(request, "Successfully Registered")
+                return redirect("pokedex:login-form")
+            else:
+                return redirect("pokedex:register-form")
 
         return render(request, self.template_name, {"form": form})
 

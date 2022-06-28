@@ -10,7 +10,7 @@ from pokedex.views import (
     PokemonDelete,
     PokemonSearch,
     PokemonLogin,
-    # PokemonRegister,
+    PokemonRegister,
 )
 
 from pokedex import views
@@ -30,5 +30,5 @@ urlpatterns = [
         PokemonSearchByType.as_view(),
         name="search-pokemons-type",
     ),
-    # path("register/", PokemonRegister.as_view(), name="register-form"),
+    path("register/", PokemonRegister.as_view(), name="register-form"),
 ]
