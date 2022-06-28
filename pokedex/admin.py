@@ -16,6 +16,9 @@ class PokemonAdmin(admin.ModelAdmin):
 class PokemonStatsAdmin(admin.ModelAdmin):
     list_display = [
         "name",
+        "effort",
+        "base_stat",
+        "pokemon",
     ]
 
 

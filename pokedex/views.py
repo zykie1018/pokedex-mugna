@@ -230,6 +230,11 @@ class PokemonSearchByType(ListView):
         )
 
 
+"""
+    Login cbv
+"""
+
+
 @method_decorator(user_is_authenticated, name="dispatch")
 class PokemonLogin(ListView):
     form_class = PokemonLoginForm
